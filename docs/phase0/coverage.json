@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "features": {
+    "root": "/Users/iagocavalcante/Workspaces/IagoCavalcante/trainer-gym-ai/apps/mobile/Packages/Modules/Sources/Features",
+    "total": 80,
+    "clean": 3,
+    "small": 5,
+    "no": 72,
+    "percentages": {
+      "clean": 3.8,
+      "small": 6.2,
+      "no": 90.0
+    },
+    "reasonCategoryOccurrences": {
+      "notOTAState": 194,
+      "unsupportedModifier": 149,
+      "unsupportedView": 83,
+      "parameterizedHelper": 22,
+      "unsupportedControlFlow": 14,
+      "actionNotOTAAction": 10
+    },
+    "cleanViews": [
+      "HealthKitSettings/HealthKitSettingsView.swift:SectionCard",
+      "Onboarding/Components/OnboardingScaffold.swift:OnboardingScaffold",
+      "Privacy/PrivacyView.swift:SectionCard"
+    ],
+    "smallViews": [
+      "Habits/IdentityOnboardingView.swift:IdentityOnboardingView",
+      "HealthKitSettings/HealthKitSettingsView.swift:SectionTitle",
+      "Onboarding/ConsentGateView.swift:ConsentGateView",
+      "Privacy/PrivacyView.swift:SectionTitle",
+      "WorkoutComplete/ShareCardView.swift:ShareCardView"
+    ],
+    "topNoReasons": [
+      { "views": 22, "code": "notOTAState", "detail": "viewModel" },
+      { "views": 15, "code": "unsupportedModifier", "detail": "navigationTitle" },
+      { "views": 13, "code": "unsupportedModifier", "detail": "task" },
+      { "views": 12, "code": "unsupportedControlFlow", "detail": "if let" },
+      { "views": 11, "code": "notOTAState", "detail": "totalSteps" },
+      { "views": 11, "code": "unsupportedView", "detail": "OnboardingScaffold" },
+      { "views": 10, "code": "notOTAState", "detail": "currentStep" },
+      { "views": 10, "code": "notOTAState", "detail": "onBack" },
+      { "views": 10, "code": "notOTAState", "detail": "onContinue" },
+      { "views": 9, "code": "notOTAState", "detail": "items" }
+    ]
+  },
+  "paywall": {
+    "root": "/Users/iagocavalcante/Workspaces/IagoCavalcante/trainer-gym-ai/apps/mobile/Packages/Modules/Sources/Features/Paywall",
+    "total": 1,
+    "clean": 0,
+    "small": 0,
+    "no": 1,
+    "reasons": [
+      "notOTAState:onDismiss",
+      "notOTAState:onPurchased",
+      "notOTAState:viewModel",
+      "parameterizedHelper:closeButton",
+      "unsupportedControlFlow:if let",
+      "unsupportedModifier:onChange",
+      "unsupportedModifier:task"
+    ]
+  }
+}

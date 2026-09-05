@@ -1,0 +1,50 @@
+name: PaywallSpike
+options:
+  bundleIdPrefix: dev.pororoca
+  deploymentTarget:
+    iOS: "18.1"
+packages:
+  Pororoca:
+    path: ../../ios
+  SnapshotTesting:
+    url: https://github.com/pointfreeco/swift-snapshot-testing.git
+    from: 1.19.4
+targets:
+  PaywallSpike:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+    dependencies:
+      - package: Pororoca
+        product: Pororoca
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.pororoca.PaywallSpike
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: 6.0
+  PaywallSpikeTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+        excludes:
+          - "__Snapshots__/**"
+    dependencies:
+      - target: PaywallSpike
+      - package: SnapshotTesting
+        product: SnapshotTesting
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.pororoca.PaywallSpikeTests
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: 6.0
+schemes:
+  PaywallSpike:
+    build:
+      targets:
+        PaywallSpike: all
+        PaywallSpikeTests: [test]
+    test:
+      targets:
+        - PaywallSpikeTests

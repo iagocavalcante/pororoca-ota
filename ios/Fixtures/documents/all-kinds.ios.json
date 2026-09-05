@@ -1,0 +1,584 @@
+{
+  "format" : 1,
+  "local" : {
+    "expanded" : false,
+    "selectedPlan" : "monthly",
+    "step" : 1
+  },
+  "platform" : "ios",
+  "requires" : {
+    "actions" : [
+      "purchase",
+      "restore"
+    ],
+    "assets" : [
+      "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    ],
+    "runtime" : ">=1.0",
+    "slots" : [
+      "banner"
+    ],
+    "state" : {
+      "canDismiss" : "bool?",
+      "count" : "number",
+      "isPro" : "bool",
+      "items" : "array",
+      "price" : "number?",
+      "subtitle" : "string?",
+      "title" : "string"
+    },
+    "strings" : [
+      "appName",
+      "slogan",
+      "cta"
+    ],
+    "tokens" : {
+      "color" : [
+        "primary",
+        "background",
+        "surface",
+        "text",
+        "textSecondary"
+      ],
+      "font" : [
+        "title",
+        "body"
+      ],
+      "radius" : [
+        "sm",
+        "md",
+        "lg",
+        "full"
+      ],
+      "space" : [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ]
+    }
+  },
+  "root" : {
+    "c" : [
+      {
+        "c" : [
+          {
+            "mod" : {
+              "font" : {
+                "system" : {
+                  "design" : "rounded",
+                  "size" : 18,
+                  "weight" : "semibold"
+                }
+              },
+              "padding" : {
+                "edges" : "all",
+                "value" : {
+                  "$space" : "sm"
+                }
+              }
+            },
+            "p" : {
+              "value" : {
+                "expr" : {
+                  "concat" : [
+                    {
+                      "$t" : "appName"
+                    },
+                    " — ",
+                    {
+                      "state" : "title"
+                    },
+                    " ",
+                    {
+                      "local" : "selectedPlan"
+                    },
+                    " ",
+                    {
+                      "fmt" : {
+                        "kind" : "currency",
+                        "options" : {
+                          "code" : "BRL",
+                          "locale" : "pt_BR"
+                        },
+                        "value" : {
+                          "??" : [
+                            {
+                              "state" : "price"
+                            },
+                            0
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "fmt" : {
+                        "kind" : "number",
+                        "options" : {
+                          "grouping" : true,
+                          "locale" : "en_US"
+                        },
+                        "value" : {
+                          "state" : "count"
+                        }
+                      }
+                    },
+                    {
+                      "fmt" : {
+                        "kind" : "date",
+                        "options" : {
+                          "dateStyle" : "short",
+                          "locale" : "en_US",
+                          "timeStyle" : "none",
+                          "timeZone" : "UTC"
+                        },
+                        "value" : 0
+                      }
+                    },
+                    {
+                      "fmt" : {
+                        "kind" : "plural",
+                        "options" : {
+                          "locale" : "en_US",
+                          "one" : "item",
+                          "other" : "items"
+                        },
+                        "value" : {
+                          "state" : "count"
+                        }
+                      }
+                    },
+                    {
+                      "case" : {
+                        "cases" : {
+                          "monthly" : "M",
+                          "yearly" : "Y"
+                        },
+                        "default" : "?",
+                        "on" : {
+                          "local" : "selectedPlan"
+                        }
+                      }
+                    },
+                    {
+                      "count" : [
+                        {
+                          "state" : "items"
+                        }
+                      ]
+                    },
+                    {
+                      "empty" : [
+                        {
+                          "state" : "subtitle"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "t" : "text"
+          },
+          {
+            "p" : {
+              "minLength" : {
+                "$space" : "xs"
+              }
+            },
+            "t" : "spacer"
+          }
+        ],
+        "p" : {
+          "alignment" : "firstTextBaseline",
+          "spacing" : 8
+        },
+        "t" : "hstack"
+      },
+      {
+        "c" : [
+          {
+            "p" : {
+              "cornerRadius" : 10,
+              "fill" : {
+                "hex" : "#11223344"
+              },
+              "kind" : "rounded"
+            },
+            "t" : "shape"
+          },
+          {
+            "p" : {
+              "material" : "star",
+              "sf" : "star.fill",
+              "size" : 24,
+              "weight" : "bold"
+            },
+            "t" : "icon"
+          }
+        ],
+        "p" : {
+          "alignment" : "center"
+        },
+        "t" : "zstack"
+      },
+      {
+        "c" : [
+          {
+            "t" : "divider"
+          }
+        ],
+        "t" : "box"
+      },
+      {
+        "c" : [
+          {
+            "c" : [
+              {
+                "p" : {
+                  "items" : {
+                    "state" : "items"
+                  },
+                  "key" : "id",
+                  "template" : {
+                    "c" : [
+                      {
+                        "p" : {
+                          "value" : {
+                            "expr" : {
+                              "concat" : [
+                                {
+                                  "item" : "title"
+                                },
+                                " #",
+                                {
+                                  "index" : true
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "t" : "text"
+                      },
+                      {
+                        "t" : "spacer"
+                      }
+                    ],
+                    "t" : "hstack"
+                  }
+                },
+                "t" : "foreach"
+              }
+            ],
+            "p" : {
+              "spacing" : {
+                "$space" : "xs"
+              }
+            },
+            "t" : "lazycolumn"
+          }
+        ],
+        "p" : {
+          "axis" : "horizontal"
+        },
+        "t" : "scroll"
+      },
+      {
+        "p" : {
+          "contentMode" : "fit",
+          "source" : {
+            "$bundled" : "hero"
+          }
+        },
+        "t" : "image"
+      },
+      {
+        "p" : {
+          "contentMode" : "fill",
+          "source" : {
+            "$asset" : "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+          }
+        },
+        "t" : "image"
+      },
+      {
+        "p" : {
+          "tint" : {
+            "$color" : "primary"
+          }
+        },
+        "t" : "progress"
+      },
+      {
+        "c" : [
+          {
+            "p" : {
+              "value" : {
+                "$t" : "cta"
+              }
+            },
+            "t" : "text"
+          }
+        ],
+        "p" : {
+          "action" : {
+            "args" : {
+              "plan" : {
+                "local" : "selectedPlan"
+              },
+              "step" : {
+                "local" : "step"
+              }
+            },
+            "name" : "purchase"
+          }
+        },
+        "t" : "button"
+      },
+      {
+        "c" : [
+          {
+            "p" : {
+              "value" : "Legal"
+            },
+            "t" : "text"
+          }
+        ],
+        "p" : {
+          "action" : {
+            "args" : {
+              "url" : "https://example.com"
+            },
+            "name" : "openURL"
+          },
+          "role" : "cancel"
+        },
+        "t" : "button"
+      },
+      {
+        "p" : {
+          "cond" : {
+            "&&" : [
+              {
+                "!=" : [
+                  {
+                    "state" : "count"
+                  },
+                  1
+                ]
+              },
+              {
+                "<=" : [
+                  {
+                    "state" : "count"
+                  },
+                  10
+                ]
+              },
+              {
+                ">" : [
+                  {
+                    "state" : "count"
+                  },
+                  0
+                ]
+              }
+            ]
+          },
+          "else" : {
+            "p" : {
+              "value" : "Empty"
+            },
+            "t" : "text"
+          },
+          "then" : {
+            "p" : {
+              "value" : {
+                "$t" : "slogan"
+              }
+            },
+            "t" : "text"
+          }
+        },
+        "t" : "if"
+      },
+      {
+        "p" : {
+          "cond" : {
+            "state" : "isPro"
+          },
+          "then" : {
+            "p" : {
+              "fill" : {
+                "$color" : "primary"
+              },
+              "kind" : "circle"
+            },
+            "t" : "shape"
+          }
+        },
+        "t" : "if"
+      },
+      {
+        "p" : {
+          "fill" : {
+            "$color" : "surface"
+          },
+          "kind" : "rect"
+        },
+        "t" : "shape"
+      },
+      {
+        "p" : {
+          "fill" : {
+            "$color" : "primary"
+          },
+          "kind" : "capsule"
+        },
+        "t" : "shape"
+      },
+      {
+        "p" : {
+          "name" : "banner",
+          "props" : {
+            "active" : true,
+            "count" : 3,
+            "title" : {
+              "$t" : "appName"
+            }
+          }
+        },
+        "t" : "slot"
+      }
+    ],
+    "mod" : {
+      "accessibilityLabel" : {
+        "$t" : "cta"
+      },
+      "background" : {
+        "linear" : {
+          "colors" : [
+            {
+              "$color" : "background"
+            },
+            {
+              "$color" : "surface",
+              "opacity" : 0.8
+            }
+          ],
+          "end" : "bottomTrailing",
+          "start" : "topLeading"
+        }
+      },
+      "border" : {
+        "color" : {
+          "hex" : "#AABBCC"
+        },
+        "width" : 1
+      },
+      "clip" : "capsule",
+      "cornerRadius" : {
+        "radius" : {
+          "$radius" : "lg"
+        },
+        "style" : "continuous"
+      },
+      "disabled" : {
+        "&&" : [
+          {
+            "==" : [
+              {
+                "state" : "isPro"
+              },
+              false
+            ]
+          },
+          {
+            "!" : [
+              {
+                "??" : [
+                  {
+                    "state" : "canDismiss"
+                  },
+                  false
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "fixedSize" : {
+        "horizontal" : false,
+        "vertical" : true
+      },
+      "font" : {
+        "$font" : "body"
+      },
+      "foreground" : {
+        "$color" : "text"
+      },
+      "frame" : {
+        "alignment" : "topLeading",
+        "maxWidth" : "infinity",
+        "minHeight" : 44,
+        "minWidth" : 100
+      },
+      "hidden" : {
+        "||" : [
+          {
+            "<" : [
+              {
+                "state" : "count"
+              },
+              0
+            ]
+          },
+          {
+            ">=" : [
+              {
+                "state" : "count"
+              },
+              100
+            ]
+          }
+        ]
+      },
+      "id" : "root",
+      "ignoresSafeArea" : "bottom",
+      "lineLimit" : 2,
+      "minimumScaleFactor" : 0.8,
+      "multilineAlignment" : "center",
+      "opacity" : 0.95,
+      "padding" : [
+        {
+          "edges" : "horizontal",
+          "value" : {
+            "$space" : "lg"
+          }
+        },
+        {
+          "edges" : "bottom",
+          "value" : 12
+        }
+      ],
+      "shadow" : {
+        "color" : {
+          "$color" : "text",
+          "opacity" : 0.2
+        },
+        "radius" : 4,
+        "x" : 0,
+        "y" : 2
+      }
+    },
+    "p" : {
+      "alignment" : "leading",
+      "spacing" : {
+        "$space" : "md"
+      }
+    },
+    "t" : "vstack"
+  },
+  "screen" : "all-kinds"
+}

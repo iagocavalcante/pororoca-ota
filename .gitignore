@@ -1,0 +1,20 @@
+# SwiftPM
+.build/
+.swiftpm/
+*.xcodeproj
+xcuserdata/
+DerivedData/
+
+# XcodeGen output (examples/*/project.yml is the source of truth)
+examples/**/*.xcodeproj
+
+# macOS
+.DS_Store
+
+# Local agent state
+.claude-memory/
+.claude/worktrees/
+
+# Pororoca publisher output and private signing keys
+.pororoca/
+private.key

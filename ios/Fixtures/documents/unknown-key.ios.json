@@ -1,0 +1,19 @@
+{
+  "format" : 1,
+  "platform" : "ios",
+  "requires" : {
+    "runtime" : ">=1.0"
+  },
+  "root" : {
+    "mod" : {
+      "colour" : {
+        "$color" : "primary"
+      }
+    },
+    "p" : {
+      "value" : "Hello"
+    },
+    "t" : "text"
+  },
+  "screen" : "unknown-key"
+}

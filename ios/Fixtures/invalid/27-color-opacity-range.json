@@ -1,0 +1,1 @@
+{"format":1,"screen":"invalid","platform":"ios","requires":{"runtime":">=1.0","tokens":{"color":["primary"]}},"root":{"t":"divider","mod":{"foreground":{"$color":"primary","opacity":2}}}}

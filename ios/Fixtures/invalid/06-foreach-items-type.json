@@ -1,0 +1,1 @@
+{"format":1,"screen":"invalid","platform":"ios","requires":{"runtime":">=1.0","state":{"items":"string"}},"root":{"t":"foreach","p":{"items":{"state":"items"},"key":"id","template":{"t":"divider"}}}}

@@ -1,0 +1,155 @@
+{
+  "format" : 1,
+  "local" : {
+    "selectedPlan" : "lifetime"
+  },
+  "platform" : "ios",
+  "requires" : {
+    "actions" : [
+      "purchase",
+      "restore",
+      "redeemCode",
+      "dismiss"
+    ],
+    "runtime" : ">=1.0",
+    "state" : {
+      "canDismiss" : "bool",
+      "displayPrice" : "string?",
+      "isPro" : "bool",
+      "phase" : "string"
+    },
+    "strings" : [
+      "appName",
+      "paywallUnlock",
+      "slogan"
+    ],
+    "tokens" : {
+      "color" : [
+        "background",
+        "text"
+      ],
+      "font" : [
+        "title"
+      ],
+      "space" : [
+        "lg",
+        "xl"
+      ]
+    }
+  },
+  "root" : {
+    "c" : [
+      {
+        "p" : {
+          "fill" : {
+            "$color" : "background"
+          },
+          "kind" : "rect"
+        },
+        "t" : "shape"
+      },
+      {
+        "c" : [
+          {
+            "mod" : {
+              "font" : {
+                "$font" : "title"
+              },
+              "foreground" : {
+                "$color" : "text"
+              }
+            },
+            "p" : {
+              "value" : {
+                "$t" : "appName"
+              }
+            },
+            "t" : "text"
+          },
+          {
+            "p" : {
+              "value" : {
+                "$t" : "slogan"
+              }
+            },
+            "t" : "text"
+          },
+          {
+            "c" : [
+              {
+                "p" : {
+                  "value" : {
+                    "expr" : {
+                      "concat" : [
+                        {
+                          "$t" : "paywallUnlock"
+                        },
+                        " — ",
+                        {
+                          "??" : [
+                            {
+                              "state" : "displayPrice"
+                            },
+                            "…"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "t" : "text"
+              }
+            ],
+            "p" : {
+              "action" : {
+                "args" : {
+                  "plan" : {
+                    "local" : "selectedPlan"
+                  }
+                },
+                "name" : "purchase"
+              }
+            },
+            "t" : "button"
+          },
+          {
+            "p" : {
+              "cond" : {
+                "==" : [
+                  {
+                    "state" : "phase"
+                  },
+                  "ready"
+                ]
+              },
+              "then" : {
+                "p" : {
+                  "value" : "Ready"
+                },
+                "t" : "text"
+              }
+            },
+            "t" : "if"
+          }
+        ],
+        "mod" : {
+          "padding" : {
+            "edges" : "all",
+            "value" : {
+              "$space" : "xl"
+            }
+          }
+        },
+        "p" : {
+          "alignment" : "center",
+          "spacing" : {
+            "$space" : "lg"
+          }
+        },
+        "t" : "vstack"
+      }
+    ],
+    "t" : "zstack"
+  },
+  "screen" : "paywall"
+}

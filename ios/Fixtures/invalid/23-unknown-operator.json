@@ -1,0 +1,1 @@
+{"format":1,"screen":"invalid","platform":"ios","requires":{"runtime":">=1.0"},"root":{"t":"if","p":{"cond":{"plus":[1,2]},"then":{"t":"divider"}}}}

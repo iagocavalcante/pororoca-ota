@@ -1,0 +1,69 @@
+{
+  "capturedAt": "2026-09-03",
+  "device": {
+    "name": "iPhone 17",
+    "modelIdentifier": "iPhone18,3",
+    "os": "iOS 26.6"
+  },
+  "tool": {
+    "xcode": "26.5 (17F42)",
+    "template": "Animation Hitches"
+  },
+  "metric": "total hitch duration in milliseconds / full trace duration in seconds",
+  "warmupExcluded": false,
+  "runs": [
+    {
+      "variant": "native",
+      "scenario": "normal",
+      "startedAt": "2026-09-03T21:35:19.544-03:00",
+      "traceDurationSeconds": 25.693045,
+      "hitchDurationMilliseconds": 191.699250,
+      "hitchTimeRatioMillisecondsPerSecond": 7.461134,
+      "hitchCount": 5,
+      "hitches": [
+        { "startSeconds": 1.964180208, "durationMilliseconds": 133.356000 },
+        { "startSeconds": 7.690144583, "durationMilliseconds": 12.502125 },
+        { "startSeconds": 7.727650958, "durationMilliseconds": 12.502125 },
+        { "startSeconds": 7.915182500, "durationMilliseconds": 16.669500 },
+        { "startSeconds": 20.046392041, "durationMilliseconds": 16.669500 }
+      ]
+    },
+    {
+      "variant": "document",
+      "scenario": "normal",
+      "startedAt": "2026-09-03T21:42:44.193-03:00",
+      "traceDurationSeconds": 23.634460,
+      "hitchDurationMilliseconds": 0,
+      "hitchTimeRatioMillisecondsPerSecond": 0,
+      "hitchCount": 0,
+      "hitches": []
+    },
+    {
+      "variant": "native",
+      "scenario": "state-toggle",
+      "startedAt": "2026-09-03T21:46:55.300-03:00",
+      "traceDurationSeconds": 23.583431,
+      "hitchDurationMilliseconds": 0,
+      "hitchTimeRatioMillisecondsPerSecond": 0,
+      "hitchCount": 0,
+      "hitches": []
+    },
+    {
+      "variant": "document",
+      "scenario": "state-toggle",
+      "startedAt": "2026-09-03T21:50:28.495-03:00",
+      "traceDurationSeconds": 23.563690,
+      "hitchDurationMilliseconds": 0,
+      "hitchTimeRatioMillisecondsPerSecond": 0,
+      "hitchCount": 0,
+      "hitches": []
+    }
+  ],
+  "gate": {
+    "documentMaximumMillisecondsPerSecond": 5,
+    "documentMaximumRelativeToNative": 1.5,
+    "normal": "pass",
+    "stateToggle": "pass",
+    "result": "pass"
+  }
+}

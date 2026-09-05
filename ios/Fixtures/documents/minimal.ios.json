@@ -1,0 +1,14 @@
+{
+  "format" : 1,
+  "platform" : "ios",
+  "requires" : {
+    "runtime" : ">=1.0"
+  },
+  "root" : {
+    "p" : {
+      "value" : "Hello"
+    },
+    "t" : "text"
+  },
+  "screen" : "minimal"
+}

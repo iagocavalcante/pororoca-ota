@@ -1,0 +1,33 @@
+{
+  "name": "@pororoca-ota/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP tools for signed Pororoca OTA native UI delivery",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iagocavalcante/pororoca-ota.git",
+    "directory": "mcp"
+  },
+  "homepage": "https://pororoca-ota.fly.dev/docs/mcp",
+  "bugs": "https://github.com/iagocavalcante/pororoca-ota/issues",
+  "type": "module",
+  "bin": {
+    "pororoca-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
