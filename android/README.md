@@ -16,7 +16,7 @@ Run its verification suite before integrating a new revision:
 
 ## 2. Configure a runtime client
 
-Create an app in the [Pororoca dashboard](https://pororoca-ota.fly.dev/dashboard), then create a `runtime` token. Bundle only the public Ed25519 key and runtime token in the app. Keep the signing private key and `delivery` token in CI.
+Create an app in the [Pororoca dashboard](https://pororoca-ota.fly.dev/dashboard), then create its app-scoped `runtime` token. Treat that token as a publishable app identifier because mobile credentials are extractable. It can only resolve that app's updates and report untrusted events; keep the signing private key and expiring `delivery` token in CI.
 
 ```kotlin
 val client = PororocaClient(

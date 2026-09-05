@@ -11,6 +11,11 @@ examples/**/*.xcodeproj
 # macOS
 .DS_Store
 
+# Local secrets
+.env
+.env.*
+!.env.example
+
 # Local agent state
 .claude-memory/
 .claude/worktrees/

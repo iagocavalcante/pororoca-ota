@@ -108,7 +108,8 @@ struct PororocaPublisherCLI {
         else { throw CLIError.usage }
 
         let bundleURL = URL(fileURLWithPath: bundlePath).standardizedFileURL
-        let verified = try UpdateBundle.verify(at: bundleURL, publicKey: try readKey(at: publicKeyPath))
+        let publicKey = try readKey(at: publicKeyPath)
+        let verified = try UpdateBundle.verify(at: bundleURL, publicKey: publicKey)
         let signed = try UpdateBundle.signedManifest(at: bundleURL)
         let channel = option("--channel", in: arguments) ?? "production"
         let rollout = option("--rollout", in: arguments).flatMap(Int.init) ?? 100
@@ -128,10 +129,11 @@ struct PororocaPublisherCLI {
             platform: signed.manifest.platform.rawValue,
             manifest: signed,
             files: files,
+            publicKey: publicKey.base64EncodedString(),
             rolloutPercentage: rollout
         )
 
-        guard var endpoint = URL(string: server) else { throw CLIError.invalidServer(server) }
+        guard var endpoint = URL(string: server), secure(endpoint) else { throw CLIError.invalidServer(server) }
         for component in ["api", "v1", "apps", app, "channels", channel, "updates"] {
             endpoint.appendPathComponent(component)
         }
@@ -154,6 +156,11 @@ struct PororocaPublisherCLI {
     private static func option(_ name: String, in arguments: [String]) -> String? {
         guard let index = arguments.firstIndex(of: name), arguments.indices.contains(index + 1) else { return nil }
         return arguments[index + 1]
+    }
+
+    private static func secure(_ url: URL) -> Bool {
+        if url.scheme?.lowercased() == "https" { return true }
+        return url.scheme?.lowercased() == "http" && ["localhost", "127.0.0.1", "::1"].contains(url.host?.lowercased())
     }
 
     private static func parsePlatform(_ value: String) throws -> Platform {
@@ -206,6 +213,7 @@ private struct RemotePublishRequest: Encodable {
     let platform: String
     let manifest: SignedUpdateManifest
     let files: [String: String]
+    let publicKey: String
     let rolloutPercentage: Int
 
     enum CodingKeys: String, CodingKey {
@@ -214,6 +222,7 @@ private struct RemotePublishRequest: Encodable {
         case platform
         case manifest
         case files
+        case publicKey = "public_key"
         case rolloutPercentage = "rollout_percentage"
     }
 }

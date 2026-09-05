@@ -3,6 +3,7 @@ package dev.pororoca.ota
 import com.google.crypto.tink.subtle.Ed25519Verify
 import java.net.HttpURLConnection
 import java.net.URL
+import java.net.URLEncoder
 import java.security.GeneralSecurityException
 import java.security.MessageDigest
 import java.time.Instant
@@ -66,8 +67,18 @@ public class PororocaClient(
 ) {
   private val baseUrl = serverUrl.trimEnd('/')
 
+  init {
+    val server = URL(baseUrl)
+    require(server.protocol == "https" || (server.protocol == "http" && server.host in setOf("localhost", "127.0.0.1", "::1", "[::1]"))) {
+      "Pororoca server URL must use HTTPS except on loopback"
+    }
+    require(app.matches(Regex("^[a-z0-9]+(?:-[a-z0-9]+)*$"))) { "Invalid Pororoca app slug" }
+    require(channel.matches(Regex("^[a-z0-9]+(?:-[a-z0-9]+)*$"))) { "Invalid Pororoca channel" }
+  }
+
   public suspend fun checkForUpdate(): PororocaRemoteUpdate? {
-    val url = URL("$baseUrl/api/v1/apps/$app/channels/$channel/resolve?install_id=$installId")
+    val encodedInstallId = URLEncoder.encode(installId, Charsets.UTF_8.name())
+    val url = URL("$baseUrl/api/v1/apps/$app/channels/$channel/resolve?install_id=$encodedInstallId")
     val response = transport.execute("GET", url, apiToken, null)
     if (response.status == 204) return null
     check(response.status == 200) { "Pororoca resolve failed with HTTP ${response.status}: ${response.body.decodeToString()}" }

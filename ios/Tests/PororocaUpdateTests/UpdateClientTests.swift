@@ -52,6 +52,28 @@ final class UpdateClientTests: XCTestCase {
         XCTAssertNil(update)
     }
 
+    func testRejectsNonLoopbackHTTPServer() async throws {
+        let sandbox = try Sandbox()
+        defer { sandbox.remove() }
+        let key = UpdateCrypto.generateKeyPair()
+        let store = UpdateStore(rootURL: sandbox.store(), publicKey: key.publicKey)
+        let client = UpdateClient(
+            baseURL: try XCTUnwrap(URL(string: "http://ota.example")),
+            apiToken: "pororoca_live_test",
+            app: "trainer-gym-ai",
+            installID: "install-00000002",
+            store: store,
+            transport: { _ in XCTFail("transport must not run"); throw UpdateClientError.invalidResponse }
+        )
+
+        do {
+            _ = try await client.checkForUpdate()
+            XCTFail("expected insecure URL rejection")
+        } catch {
+            XCTAssertEqual(error as? UpdateClientError, .insecureServerURL)
+        }
+    }
+
     private func remoteResponse(for bundleURL: URL) throws -> Data {
         let signed = try UpdateBundle.signedManifest(at: bundleURL)
         let manifestObject = try JSONSerialization.jsonObject(with: ManifestCodec.encode(signed))

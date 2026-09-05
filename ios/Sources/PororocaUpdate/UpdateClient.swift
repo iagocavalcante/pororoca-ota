@@ -81,6 +81,7 @@ public actor UpdateClient {
     }
 
     private func endpoint(_ action: String, query: [URLQueryItem] = []) throws -> URL {
+        guard Self.secure(baseURL) else { throw UpdateClientError.insecureServerURL }
         var url = baseURL
         for component in ["api", "v1", "apps", app, "channels", channel, action] {
             url.appendPathComponent(component)
@@ -91,6 +92,11 @@ public actor UpdateClient {
         components.queryItems = query.isEmpty ? nil : query
         guard let result = components.url else { throw UpdateClientError.invalidServerURL }
         return result
+    }
+
+    private static func secure(_ url: URL) -> Bool {
+        if url.scheme?.lowercased() == "https" { return true }
+        return url.scheme?.lowercased() == "http" && ["localhost", "127.0.0.1", "::1"].contains(url.host?.lowercased())
     }
 
     private func statusCode(_ response: URLResponse) throws -> Int {
@@ -109,6 +115,7 @@ public actor UpdateClient {
 
 public enum UpdateClientError: Error, Equatable {
     case invalidServerURL
+    case insecureServerURL
     case invalidResponse
     case serverRejected(Int, String)
     case invalidBase64(String)

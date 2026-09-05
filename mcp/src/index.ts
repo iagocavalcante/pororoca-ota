@@ -6,6 +6,11 @@ import { z } from "zod";
 const baseUrl = (process.env.POROROCA_API_URL ?? "http://127.0.0.1:4000").replace(/\/$/, "");
 const apiToken = process.env.POROROCA_API_TOKEN;
 
+const serverUrl = new URL(baseUrl);
+if (serverUrl.protocol !== "https:" && !(serverUrl.protocol === "http:" && ["localhost", "127.0.0.1", "::1"].includes(serverUrl.hostname))) {
+  throw new Error("POROROCA_API_URL must use HTTPS except on loopback");
+}
+
 async function request(path: string, init: RequestInit = {}): Promise<unknown> {
   if (!apiToken) throw new Error("POROROCA_API_TOKEN is required");
   const response = await fetch(`${baseUrl}${path}`, {
@@ -61,6 +66,7 @@ server.registerTool(
       platform: z.enum(["ios", "android"]),
       manifest: z.record(z.string(), z.unknown()),
       files: z.record(z.string(), z.string()),
+      public_key: z.string().min(1).describe("Base64-encoded Ed25519 public key; never provide the private key"),
       rollout_percentage: z.number().int().min(0).max(100).default(100),
     },
     annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false },

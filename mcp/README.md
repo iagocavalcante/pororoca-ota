@@ -50,7 +50,7 @@ Restart the MCP client, then ask it to run `pororoca_channel_status` for your ap
 ## 3. Use the delivery tools
 
 - `pororoca_channel_status` — inspect the current update, rollout, adoption, compatibility, and health.
-- `pororoca_publish` — publish an existing signed manifest plus base64-encoded bundle files.
+- `pororoca_publish` — publish an existing signed manifest, its base64-encoded files, and the matching base64 public key.
 - `pororoca_set_rollout` — idempotently set the current rollout percentage.
 - `pororoca_rollback` — restore the previous known-good update for devices on their next check.
 

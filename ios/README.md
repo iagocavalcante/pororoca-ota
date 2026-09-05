@@ -12,7 +12,7 @@ Do not track a moving branch in a production app. Upgrade the pinned commit deli
 
 ## 2. Configure the update client
 
-Create an app in the [Pororoca dashboard](https://pororoca-ota.fly.dev/dashboard), then create a `runtime` token. Bundle only the public Ed25519 key and the runtime token in the app; the signing private key and `delivery` token belong in CI.
+Create an app in the [Pororoca dashboard](https://pororoca-ota.fly.dev/dashboard), then create its app-scoped `runtime` token. Treat that token as a publishable app identifier because mobile credentials are extractable. It can only resolve that app's updates and report untrusted events; the signing private key and expiring `delivery` token belong in CI.
 
 ```swift
 import Pororoca
