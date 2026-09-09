@@ -1,5 +1,9 @@
 # Pororoca OTA
 
+[![iOS](https://github.com/iagocavalcante/pororoca-ota/actions/workflows/ios.yml/badge.svg?branch=main)](https://github.com/iagocavalcante/pororoca-ota/actions/workflows/ios.yml)
+[![Android](https://github.com/iagocavalcante/pororoca-ota/actions/workflows/android.yml/badge.svg?branch=main)](https://github.com/iagocavalcante/pororoca-ota/actions/workflows/android.yml)
+[![MCP](https://github.com/iagocavalcante/pororoca-ota/actions/workflows/mcp.yml/badge.svg?branch=main)](https://github.com/iagocavalcante/pororoca-ota/actions/workflows/mcp.yml)
+
 Open-source tooling for signed over-the-air presentation updates in native SwiftUI and Jetpack Compose apps.
 
 Pororoca documents control layout and presentation. Compiled native code keeps ownership of state, purchases, authentication, navigation, data access, analytics, and every side effect. Each app ships an embedded fallback and verifies downloaded bundles with Ed25519 before rendering them.

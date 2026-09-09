@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://pororoca-ota.fly.dev/docs
+    about: Setup, publishing, rollout, and SDK guides for both platforms.
