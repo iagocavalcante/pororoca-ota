@@ -1,0 +1,39 @@
+name: iOS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    # ios/Package.swift pins swift-syntax to exact 603.0.2, which requires a Swift 6.3
+    # toolchain. Xcode 26.4 and later bundle Swift 6.3; macos-26 ships 26.4.1/26.5/26.6.
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Select Xcode 26.6 (Swift 6.3)
+        run: sudo xcode-select -s /Applications/Xcode_26.6.app
+
+      - name: swift build
+        working-directory: ios
+        run: swift build
+
+      - name: swift test
+        working-directory: ios
+        run: swift test
