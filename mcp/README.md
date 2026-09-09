@@ -4,17 +4,17 @@ The MCP server lets a coding agent inspect delivery state, change rollout, publi
 
 The complete Codex setup, safe operating loop, and troubleshooting guide is at [pororoca-ota.fly.dev/docs/mcp](https://pororoca-ota.fly.dev/docs/mcp).
 
-## 1. Build it
+## 1. Run it
+
+The server is published as [`@pororoca-ota/mcp-server`](https://www.npmjs.com/package/@pororoca-ota/mcp-server):
 
 ```sh
-npm ci
-npm run build
 POROROCA_API_URL=https://pororoca-ota.fly.dev \
 POROROCA_API_TOKEN=pororoca_live_... \
-node dist/index.js
+npx -y @pororoca-ota/mcp-server
 ```
 
-Use Node 22 or newer. Create a `delivery` token in the dashboard and copy it when shown; it cannot be recovered later.
+To run from source instead, `npm ci && npm run build` and use `node dist/index.js`. Use Node 22 or newer. Create a `delivery` token in the dashboard and copy it when shown; it cannot be recovered later.
 
 ## 2. Add it to an MCP client
 
@@ -24,7 +24,7 @@ For Codex:
 codex mcp add pororoca \
   --env POROROCA_API_URL=https://pororoca-ota.fly.dev \
   --env POROROCA_API_TOKEN=pororoca_live_... \
-  -- node /absolute/path/to/pororoca-ota/mcp/dist/index.js
+  -- npx -y @pororoca-ota/mcp-server
 codex mcp list
 ```
 
@@ -34,8 +34,8 @@ For another MCP client, use the absolute path to this checkout's compiled entry 
 {
   "mcpServers": {
     "pororoca": {
-      "command": "node",
-      "args": ["/absolute/path/to/pororoca-ota/mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "@pororoca-ota/mcp-server"],
       "env": {
         "POROROCA_API_URL": "https://pororoca-ota.fly.dev",
         "POROROCA_API_TOKEN": "pororoca_live_..."
