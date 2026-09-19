@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         // Pinned to the swift-syntax release that matches the installed toolchain (Swift 6.3.2 → 603.x).
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", exact: "603.0.2"),
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", exact: "604.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.19.4"),
     ],
     targets: [
